@@ -436,6 +436,7 @@ body.gerente .col-origen{ display:none; }
 .v-bandas{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:6px 0 14px; }
 .v-bandas div{ border:1px solid var(--border); border-radius:14px; padding:10px 12px; }
 .v-bandas b{ display:block; font:600 24px/1.1 var(--f-num); }
+.v-pct{ margin-top:8px; font:600 13px var(--f-num); font-variant-numeric:tabular-nums; color:var(--muted); }
 
 /* cambios de precio */
 .v-baja{ color:var(--ok); font-weight:700; } .v-sube{ color:var(--bad); font-weight:700; }
@@ -1841,8 +1842,10 @@ body.solo-admin-oculto .solo-admin, body.gerente .solo-admin{ display:none !impo
 
     $("bandas").innerHTML = [["Negro","91+ días"],["Rojo","61–90 días"],
                              ["Amarillo","31–60 días"],["Verde","1–30 días"]].map(function(b){
+      var pct = todas.length ? Math.round(100 * bandas[b[0]] / todas.length) : 0;
       return '<div><b>' + bandas[b[0]] + '</b><span class="pill ' + b[0] + '">' + b[0] + '</span> ' +
-             '<span style="font-size:12px;color:var(--muted)">' + b[1] + '</span></div>';
+             '<span style="font-size:12px;color:var(--muted)">' + b[1] + '</span>' +
+             '<div class="v-pct">' + pct + '% del inventario</div></div>';
     }).join("");
     pintaCampana();
   }
